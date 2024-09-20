@@ -1,20 +1,28 @@
 import { useState } from "react";
 import "./styles.css";
+import { ChildArea } from "./ChildArea";
 
 export const App = () => {
-  console.log("App")
-  const [count, setCount] = useState(0);
+  console.log("App");
+  const [text, setText] = useState("");
+  const [display, setDisplay] = useState(false);
 
-  const onClickAdd = () => {
-    setCount(count + 1);
+  const onChangeText = (e) => {
+    setText(e.target.value);
+  };
+
+  const onClickDisplay = () => {
+    setDisplay(!display);
   };
 
   return (
-    <div className="App">
-      <h1>アプリケーション</h1>
-      <h2>こんばんは</h2>
-      <p>{count}</p>
-      <button onClick={onClickAdd}>カウンタ</button>
-    </div>
+    <>
+      <div className="App">
+        <input />
+        <hr />
+        <button onClick={onClickDisplay}>表示</button>
+        <ChildArea display={display}></ChildArea>
+      </div>
+    </>
   );
 };
