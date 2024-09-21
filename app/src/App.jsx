@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import "./styles.css";
 import { ChildArea } from "./ChildArea";
 
@@ -15,13 +15,20 @@ export const App = () => {
     setDisplay(!display);
   };
 
+  const onClickClose = () => setDisplay(false);
+  /*
+   * ↑の場合、入力ボックスに入力がある(onChangeTextステートが更新)度に、関数が再生成され、ChildAreaが再レンダリングされる要因となる
+   * よって、useCallbackで関数が生成されるタイミングを設定してあげる必要がある
+   */
+  // const onClickClose = useCallback(() => setDisplay(false), [setDisplay]);
+
   return (
     <>
       <div className="App">
-        <input />
+        <input value={text} onChange={onChangeText} />
         <hr />
         <button onClick={onClickDisplay}>表示</button>
-        <ChildArea display={display}></ChildArea>
+        <ChildArea display={display} onClickClose={onClickClose}></ChildArea>
       </div>
     </>
   );
