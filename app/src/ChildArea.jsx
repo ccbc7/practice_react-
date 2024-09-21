@@ -1,4 +1,3 @@
-import "./styles.css";
 // memoは、propsに変更がない限り、このコンポーネントを再レンダリングしない
 import { memo } from "react";
 

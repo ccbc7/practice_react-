@@ -1,35 +1,21 @@
-import { useState, useCallback } from "react";
-import "./styles.css";
-import { ChildArea } from "./ChildArea";
+import { Home } from "./Home";
+import { Page1 } from "./Page1";
+import { Page2 } from "./Page2";
+import { Link, BrowserRouter, Routes, Route } from "react-router-dom";
 
-export const App = () => {
-  console.log("App");
-  const [text, setText] = useState("");
-  const [display, setDisplay] = useState(false);
-
-  const onChangeText = (e) => {
-    setText(e.target.value);
-  };
-
-  const onClickDisplay = () => {
-    setDisplay(!display);
-  };
-
-  const onClickClose = () => setDisplay(false);
-  /*
-   * ↑の場合、入力ボックスに入力がある(onChangeTextステートが更新)度に、関数が再生成され、ChildAreaが再レンダリングされる要因となる
-   * よって、useCallbackで関数が生成されるタイミングを設定してあげる必要がある
-   */
-  // const onClickClose = useCallback(() => setDisplay(false), [setDisplay]);
-
+export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <div className="App">
-        <input value={text} onChange={onChangeText} />
-        <hr />
-        <button onClick={onClickDisplay}>表示</button>
-        <ChildArea display={display} onClickClose={onClickClose}></ChildArea>
+        <Link to="/">Home</Link>
+        <Link to="/page1">Page1</Link>
+        <Link to="/page2">Page2</Link>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/page1" element={<Page1 />} />
+          <Route path="/page2" element={<Page2 />} />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   );
-};
+}
